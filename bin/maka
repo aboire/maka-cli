@@ -8,12 +8,13 @@ var updateNotifier = require('cli-notifier');
 var pkg = require('../package.json');
 
 var notifyOptions = {
-    message: "Follow me on Medium: https://medium.com/@matthewjmcampbell !",
-    appendMessage: true
+  message: "Follow me on Medium: https://medium.com/@matthewjmcampbell !",
+  appendMessage: true
 };
 
-updateNotifier({pkg,
- updateCheckInterval: 1000 * 30
+updateNotifier({
+  pkg,
+  updateCheckInterval: 1000 * 30
 }).notify(notifyOptions);
 
 global.MAKA_COMMAND_PATH = __dirname;

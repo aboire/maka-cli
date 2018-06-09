@@ -2,20 +2,33 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 <% if (config.engines.graphql === 'apollo') {  %>
-// Apollo Client configuration using vanilla meteor settings.
-import ApolloClient from 'apollo-client';
-import { createMeteorNetworkInterface, meteorClientConfig } from 'meteor/apollo';
+// Apollo Client configuration with auth.
 import { ApolloProvider } from 'react-apollo';
-import { Meteor } from 'meteor/meteor';
+import { ApolloLink, from } from 'apollo-link';
+import { ApolloClient } from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
-const networkInterface = createMeteorNetworkInterface({
-  opts: { credentials: 'same-origin' },
-  uri: Meteor.absoluteUrl('graphql'),
-  useMeteorAccounts: true,
-  batchingInterface: true,
-  batchInterval: 10,
+const httpLink = new HttpLink({
+	uri: Meteor.absoluteUrl("graphiql")
 });
-const client = new ApolloClient(meteorClientConfig({ networkInterface }));
+
+const authLink = new ApolloLink((operation, forward) => {
+const token = Accounts._storedLoginToken();
+operation.setContext(() => ({
+		headers: {
+			"meteor-login-token": token
+		}
+	}));
+	return forward(operation);
+});
+
+const cache = new InMemoryCache();
+
+const client = new ApolloClient({
+	link: from([authLink, httpLink]),
+	cache
+});
 <% } %><% if (config.engines.theme === 'material') { %>
 // Material UI Theme config using roboto typefont and default mui.
 import 'typeface-roboto'
