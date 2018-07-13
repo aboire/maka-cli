@@ -1,8 +1,8 @@
 {
   "name": "maka-cli",
-  "version": "2.12.17",
-  "summary": "A command line tool for scaffolding Meteor 1.6.x applications using either React, Reflux, or Blaze.",
-  "description": "A command line tool for scaffolding Meteor 1.6.x applications using either React, Reflux, or Blaze.",
+  "version": "2.12.18",
+  "summary": "A command line tool for scaffolding Meteor 1.7.x applications using either React, Reflux, or Blaze.",
+  "description": "A command line tool for scaffolding Meteor 1.7.x applications using either React, Reflux, or Blaze.",
   "homepage": "https://github.com/maka-io/maka-cli",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "cli-table": "^0.3.0",
     "delete": "^0.3.0",
     "ejs": "^2.5.7",
-    "fibers": "^1.0.15",
+    "fibers": "^2.0.2",
     "minimist": "^0.0.8",
     "shell-source": "^1.1.0",
     "single-line-log": "^0.4.1",
