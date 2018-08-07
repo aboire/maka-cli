@@ -19,26 +19,6 @@ Maka works great on OSX and Linux... and Windows.
 Maka
 
 
-### Quick Note!
-Follow me on [Medium](https://medium.com/@matthewjmcampbell) for me building all the things with maka-cli!
-
-## Update 2.12.0
-In an effort to bump up Meteor and React to industry/bigboy/biggirl/bigwhateveryouidentifyas level I've implemented a scaffolding for React + TypeScript.
-
-If you'd like to create a new project with React + TypeScript, issue the following:
-
-```sh
-maka create react-typescript-app --js=tsx
-```
-
-This will scaffold out all files for TypeScript, install the necessary packages, and also add meteor.d.ts and tsconfig.json files for your
-typing safety.  You may also use any other scaffolding flags as usual.  For example:
-
-```sh
-maka create react-apollo-typescript-mocha --js=tsx --graphql=apollo --test=mocha
-```
-
-Enjoy!
 
 
 ## Installation
@@ -538,6 +518,9 @@ mjc@Mac graphql-example $ tree
 27 directories, 36 files
 
 ```
+
+### Quick Note!
+Follow me on [Medium](https://medium.com/@matthewjmcampbell) for me building all the things with maka-cli!
 
 ### Maka-cli Cookbook?
 I've been off and on working on a cookbook for all the maka-cli apps I've created over the years (because maka-cli allows me to create apps FAST).
