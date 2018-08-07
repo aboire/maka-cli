@@ -2,8 +2,9 @@
 import * as React from 'react';<% if ( isStore ) { %>
 import Reflux from 'reflux'; <% } else { %>
 import Reflux from 'reflux';<% } %><% } %><% if (features.withTracker !== 'false' && !isStore) { %>
+// @ts-ignore: MDG hasn't releasd types
 import { withTracker } from 'meteor/react-meteor-data';<% } %><% if(graphql === 'apollo' && !isStore) { %>
-import { graphql, compose } from 'react-apollo';
+import { Query } from 'react-apollo';;
 import gql from 'graphql-tag'; <% } %>
 <% if (!isStore && client === 'react') { %>
 interface <%= className %>Component {
@@ -41,14 +42,7 @@ class <%= className %>Component extends Reflux.Store<<%= className %>Component> 
   render() {
     return (<h2 className="<%=fileName%>">Find me in <%= myPath %></h2>);
   }
-}<% if (!isStore) { %><% if(graphql === 'apollo' && features.withTracker !== 'false') { %>
-const <%= className %> = compose(
-  //graphql(),
-  withTracker(() => { return {}; })
-)(<%= className %>Component);<% } else if (graphql === 'apollo' && features.withTracker === 'false') { %>
-const <%= className %> = compose(
-  //graphql()
-)(<%= className %>Component);<% } else if (features.withTracker !== 'false') { %>
+}<% if (!isStore) { %><% if (features.withTracker !== 'false') { %>
 const <%= className %> = withTracker(() => { return {}; })(<%= className %>Component);<% } else { %>
 const <%= className %> = <%= className %>Component;<% } %>
 
