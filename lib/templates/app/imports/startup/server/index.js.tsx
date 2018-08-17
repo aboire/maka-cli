@@ -1,5 +1,7 @@
 <% if (config.engines.graphql === 'apollo') { %>import { createApolloServer } from 'meteor/apollo';
-import { makeExecutableSchema } from 'graphql-tools';
+import { ApolloServer } from 'apollo-server-express';
+import { WebApp } from 'meteor/webapp';
+import { getUser } from 'meteor/apollo';
 import { mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 
 const typeList = [];
@@ -7,11 +9,25 @@ const resolverList = [];
 if (typeList.length > 0 && resolverList.length > 0) {
   const typeDefs = mergeTypes(typeList);
   const resolvers = mergeResolvers(resolverList);
-  const schema = makeExecutableSchema({
+  const server = new ApolloServer({
     typeDefs,
     resolvers,
+    context: async ({ req }) => ({
+      user: await getUser(req.headers.authorization)
+    })
   });
-  createApolloServer({ schema });
+  server.applyMiddleware({
+    app: WebApp.connectHandlers,
+    path: '/graphql'
+  });
+
+  // We are doing this work-around because Playground sets headers and WebApp also sets headers
+  // Resulting into a conflict and a server side exception of "Headers already sent"
+  WebApp.connectHandlers.use('/graphql', (req, res) => {
+    if (req.method === 'GET') {
+      res.end()
+    }
+  });
 }<% } %>
 <% if (config.engines.ssr === 'true') { %>
 /************* SSR Code ********************/
