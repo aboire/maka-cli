@@ -20,14 +20,6 @@ if (typeList.length > 0 && resolverList.length > 0) {
     app: WebApp.connectHandlers,
     path: '/graphql'
   });
-
-  // We are doing this work-around because Playground sets headers and WebApp also sets headers
-  // Resulting into a conflict and a server side exception of "Headers already sent"
-  WebApp.connectHandlers.use('/graphql', (req, res) => {
-    if (req.method === 'GET') {
-      res.end()
-    }
-  });
 }<% } %>
 <% if (config.engines.ssr === 'true') { %>
 /************* SSR Code ********************/
