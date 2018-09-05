@@ -40,7 +40,7 @@
     "chdir": "^0.0.0",
     "concat-stream": "^1.4.6",
     "mkdirp": "^0.5.0",
-    "mocha": "^1.21.4",
+    "mocha": "^5.2.0",
     "rimraf": "^2.2.8"
   },
   "keywords": "flux reflux scaffold scaffolding meteor maka maka-cli javascript 1.6 javascript react react-router es6 server side rendering ssr graphql apollo jasmine material-ui postgresql postgres mssql"
