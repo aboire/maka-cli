@@ -1,4 +1,4 @@
-<% if (config.engines.graphql === 'apollo') { %>import { createApolloServer } from 'meteor/apollo';
+<% if (config.engines.graphql === 'apollo') { %>
 import { ApolloServer } from 'apollo-server-express';
 import { WebApp } from 'meteor/webapp';
 import { getUser } from 'meteor/apollo';
