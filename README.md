@@ -11,7 +11,7 @@ Maka works great on OSX and Linux... and Windows.
 
 ``` sh
 
-    $ maka create something-aweosme --graphql=apollo --theme=material --test=jasmine --ssr=true
+    $ maka create something-aweosme --api=graphql --theme=material --test=jasmine --ssr=true
 
 ```
 
@@ -71,7 +71,7 @@ maka create ReactApp
 
 ### Create a GraphQL App
 ```
-maka create GraphQLApp --graphql=apollo
+maka create GraphQLApp --api=graphql
 
 maka g:api boats
 ```
