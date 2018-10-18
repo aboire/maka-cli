@@ -44,8 +44,16 @@ const App = () => (<% if (config.engines.ssr === 'true') { %>
   </BrowserRouter><% } %>
 );
 
-<% if (config.engines.ssr === 'true') { %>
-onPageLoad(sink => {
-  ReactDOM.hydrate(<App />,document.getElementById('app'));
-});<% } else { %>
-ReactDOM.render(<App />, document.getElementById('app'));<% } %>
+
+const startApp = () => {<% if (config.engines.ssr === 'true') { %>
+  onPageLoad(sink => {
+    ReactDOM.hydrate(<App />,document.getElementById('app'));
+  });<% } else { %>
+  ReactDOM.render(<App />, document.getElementById('app'));<% } %>
+}
+
+if(window.cordova) {
+  document.addEventListener('deviceready', startApp, false);
+} else {
+  startApp();
+}
