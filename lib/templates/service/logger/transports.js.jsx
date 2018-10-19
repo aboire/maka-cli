@@ -23,7 +23,7 @@ class MongoTransport extends Transport {
       location = 'common';
     }
 
-    Logs.insert({info, time: new Date(), location});
+    Logs.insert({time: new Date(), location, message: info.message, level: info.level});
 
     callback();
   }
