@@ -2,8 +2,7 @@ import winston from 'winston';
 
 import { MongoTransport } from '/imports/startup/lib/services/logger-transports';
 
-// global definition
-Logger = winston.createLogger({
+const Logger = winston.createLogger({
   level: 'info',
   format: winston.format.json(),
   transports: [
@@ -16,3 +15,5 @@ if (process.env.NODE_ENV !== 'production') {
     format: winston.format.simple()
   }));
 }
+
+export default Logger;
