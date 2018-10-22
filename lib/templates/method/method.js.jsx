@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
-import { _ } from 'meteor/underscore';
 
 /**
  * Using ValidatedMethod (maintained by MDG) is the best
@@ -19,7 +18,7 @@ import { _ } from 'meteor/underscore';
  * @property { function }   run         The main action that is executed.
  */
 const <%= name %> = new ValidatedMethod({
-  name: '<%= fileName %>',
+  name: '<%= fileName %>.server',
   validate: null,
   run() {
     // insert code to run
@@ -28,9 +27,9 @@ const <%= name %> = new ValidatedMethod({
 });
 
 
-const RATE_LIMITED_METHODS = _.pluck([
+const RATE_LIMITED_METHODS = [
   <%= name %>,
-], 'name');
+].map(value => value['name']);
 
 if (Meteor.isServer) {
   const OPERATIONS = 5;
@@ -38,7 +37,7 @@ if (Meteor.isServer) {
   // Only allow 5 list operations per connection per second.
   DDPRateLimiter.addRule({
     name(name) {
-      return _.contains(RATE_LIMITED_METHODS, name);
+      return RATE_LIMITED_METHODS.includes(name);
     },
 
     // Rate limit per connection ID.

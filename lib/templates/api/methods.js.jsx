@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
-import { _ } from 'meteor/underscore';
 
 import <%= name %> from './<%= fileName %>-collection.jsx';
 
@@ -64,9 +63,9 @@ const remove<%= name %> = new ValidatedMethod({
   },
 });
 
-const RATE_LIMITED_METHODS = _.pluck([
-  insert<%= name %>, update<%= name %>, remove<%= name %>,
-], 'name');
+const RATE_LIMITED_METHODS = [
+    insert<%= name %> , update<%= name %> , remove<%= name %>
+].map(value => value['name']);
 
 if (Meteor.isServer) {
   const OPERATIONS = 5;
@@ -74,7 +73,7 @@ if (Meteor.isServer) {
   // Only allow 5 list operations per connection per second.
   DDPRateLimiter.addRule({
     name(name) {
-      return _.contains(RATE_LIMITED_METHODS, name);
+      return RATE_LIMITED_METHODS.includes(name);
     },
 
     // Rate limit per connection ID.
