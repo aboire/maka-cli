@@ -21,8 +21,9 @@ import { _ } from 'meteor/underscore';
 const <%= name %> = new ValidatedMethod({
   name: '<%= fileName %>.insert',
   validate: null,
-  run(doc) {
-    return <%= name %>.insert(doc);
+  run() {
+    // insert code to run
+    return false;
   },
 });
 
