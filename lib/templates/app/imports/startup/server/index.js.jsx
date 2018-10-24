@@ -48,9 +48,9 @@ import { SheetsRegistry } from 'react-jss/lib/jss';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { create } from 'jss';
 import preset from 'jss-preset-default';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
-import { grey } from 'material-ui/colors';<% } else { %>
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import createGenerateClassName from '@material-ui/core/styles/createGenerateClassName';
+import { grey } from '@material-ui/core/colors';<% } else { %>
 import { ServerStyleSheet } from 'styled-components';<% } %>
 
 onPageLoad(sink => {
@@ -67,11 +67,14 @@ onPageLoad(sink => {
 
     // Create a theme instance.
     const theme = createMuiTheme({
-        palette: {
-            primary: grey,
-            accent: grey,
-            type: 'light',
-        },
+      typography: {
+        useNextVariants: true,
+      },
+      palette: {
+        primary: grey,
+        accent: grey,
+        type: 'light',
+      },
     });
 
     const jss = create(preset());
