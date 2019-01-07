@@ -43,7 +43,7 @@ class <%= className %>Component extends Reflux.Store<<%= className %>Component> 
     return (<h2 className="<%=fileName%>">Find me in <%= myPath %></h2>);
   }
 }<% if (!isStore) { %><% if (features.withTracker !== 'false') { %>
-const <%= className %> = withTracker(() => { return {}; })(<%= className %>Component);<% } else { %>
+const <%= className %> = withTracker(() => { return {}; })(<% if(graphql === 'apollo' && !isStore) { %>withApollo(<% } %><%= className %>Component<% if(graphql === 'apollo' && !isStore) { %>)<% } %>);<% } else { %>
 const <%= className %> = <%= className %>Component;<% } %>
 
 export { <%= className %>, <%= className %>Component };<% } else { %>

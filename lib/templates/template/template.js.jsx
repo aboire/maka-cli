@@ -3,7 +3,7 @@ import React from 'react';<% if ( isStore ) { %>
 import { Store } from 'reflux'; <% } else { %>
 import { Component } from 'reflux';<% } %><% } %><% if (features.withTracker !== 'false' && !isStore) { %>
 import { withTracker } from 'meteor/react-meteor-data';<% } %><% if(graphql === 'apollo' && !isStore) { %>
-import { Query } from 'react-apollo';
+import { Query, withApollo } from 'react-apollo';
 import gql from 'graphql-tag'; <% } %>
 <% if (!isStore) { %>
 class <%= className %>Component extends Component {<% } else { %>
@@ -32,7 +32,7 @@ class <%= className %>Component extends Store { <% } %><% if (client === 'reflux
     return (<h2 className="<%=fileName%>">Find me in <%= myPath %></h2>);
   }
 }<% if (!isStore) { %><% if (features.withTracker !== 'false') { %>
-const <%= className %> = withTracker(() => { return {}; })(<%= className %>Component);<% } else { %>
+const <%= className %> = withTracker(() => { return {}; })(<% if(graphql === 'apollo' && !isStore) { %>withApollo(<% } %><%= className %>Component<% if(graphql === 'apollo' && !isStore) { %>)<% } %>);<% } else { %>
 const <%= className %> = <%= className %>Component;<% } %>
 
 export { <%= className %>, <%= className %>Component };<% } else { %>
