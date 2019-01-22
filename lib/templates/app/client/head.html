@@ -5,4 +5,12 @@
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <meta name="description" content="<%= app %>">
   <title><%= app %></title>
+
+  	<script type="text/javascript">
+    window.onbeforeunload = closingCode;
+    function closingCode(){
+      if (Meteor.settings.public.logoutOnClose === true) Meteor.logout();
+      return null;
+    }
+    </script>
 </head>
