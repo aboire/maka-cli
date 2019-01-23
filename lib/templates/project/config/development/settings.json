@@ -1,15 +1,6 @@
 {
   "public": {
-    "//": "Find logoutOnClose implementation in app/client/head.html",
     "logoutOnClose": false
   },
-
-  "server": "Will not run on client",
-  <% if (config.engines.test !== 'none') { %>
-  "coverage": {
-      "coverage_app_folder": "<%= appPath %>",
-      "is_coverage_active": true,
-      "verbose": false
-  }
-  <% } %>
+  "server": "Will not run on client"
 }
