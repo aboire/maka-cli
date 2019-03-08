@@ -6,9 +6,6 @@ interface <%= className %>Component {
   props: Props;
   state: object;
 }
-type Props {
-  children: any;
-}
 <% if (client === 'reflux') { %>
 class <%= className %>Component extends Reflux.Component<<%= className %>Component> {<% } else { %>
 class <%= className %>Component extends React.Component<<%= className %>Component> {<% } %>

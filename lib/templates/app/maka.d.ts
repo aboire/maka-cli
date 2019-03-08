@@ -18,6 +18,10 @@ declare module "react-dom" {
   export let render: any;
 }
 
+type Props {
+  children: any;
+}
+
 declare namespace JSX {
   interface IntrinsicElements {
     a: any;
