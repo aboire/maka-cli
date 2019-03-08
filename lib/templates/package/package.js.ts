@@ -8,7 +8,7 @@ Package.describe({
 //Npm.depends({});
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.6');
+  api.versionsFrom('1.8');
 
   api.use(['ecmascript', 'templating', 'modules']);
 
