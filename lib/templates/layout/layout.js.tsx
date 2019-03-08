@@ -3,16 +3,20 @@ import * as React from 'react';
 import Reflux from 'reflux';<% } %>
 
 interface <%= className %>Component { 
-  state: any,
-  props: any
-}<% if (client === 'reflux') { %>
+  props: Props;
+  state: object;
+}
+type Props {
+  children: any;
+}
+<% if (client === 'reflux') { %>
 class <%= className %>Component extends Reflux.Component<<%= className %>Component> {<% } else { %>
 class <%= className %>Component extends React.Component<<%= className %>Component> {<% } %>
   static propTypes = {}
 
   static defaultProps = {}
 
-  constructor(props) {
+  constructor(props:Props) {
     super(props);
     this.state = {};
   }

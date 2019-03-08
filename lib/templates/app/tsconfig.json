@@ -7,7 +7,7 @@
     "sourceMap": true,
     "jsx": "react",
     "allowJs": false,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "strictNullChecks": false,
     "experimentalDecorators": true
   },

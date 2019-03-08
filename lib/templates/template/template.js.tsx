@@ -2,21 +2,23 @@
 import * as React from 'react';<% if ( isStore ) { %>
 import Reflux from 'reflux'; <% } else { %>
 import Reflux from 'reflux';<% } %><% } %><% if (features.withTracker !== 'false' && !isStore) { %>
-// @ts-ignore: MDG hasn't releasd types
 import { withTracker } from 'meteor/react-meteor-data';<% } %><% if(graphql === 'apollo' && !isStore) { %>
 import { Query } from 'react-apollo';;
 import gql from 'graphql-tag'; <% } %>
 <% if (!isStore && client === 'react') { %>
 interface <%= className %>Component {
-  state: any;
+  props: object;
+  state: object;
 }
 class <%= className %>Component extends React.Component<<%= className %>Component> {<% } else if (!isStore && client === 'reflux') { %>
-interface <%= className %>Component {
-  state: any;
+interface <%= className %>Interface {
+  props: object;
+  state: object;
 }
 class <%= className %>Component extends Reflux.Component<<%= className %>Component> {<% } else { %>
 interface <%= className %>Component {
-  state: any;
+  props: object;
+  state: object;
 }
 class <%= className %>Component extends Reflux.Store<<%= className %>Component> {<% } %><% if (client === 'reflux' && isStore) { %>
   constructor() {
@@ -27,7 +29,7 @@ class <%= className %>Component extends Reflux.Store<<%= className %>Component> 
 
   static defaultProps = {};
 
-  constructor(props) {
+  constructor(props:object) {
     super(props);
     this.state = {};<% if (client === 'reflux') { %>
     this.store = null;<% } %>

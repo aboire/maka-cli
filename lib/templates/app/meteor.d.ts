@@ -1,10 +1,3 @@
-// Type definitions for Meteor 1.3
-// Project: http://www.meteor.com/
-// Definitions by: Dave Allen <https://github.com/fullflavedave>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-interface Window { cordova: any; }
-
 /**
  * These are the common (for client and server) modules and interfaces that can't be automatically generated from the Meteor data.js file
  */
@@ -957,3 +950,4 @@ declare function execFileSync(command: string, args?: any[], options?: {
   waitForClose?: string;
 }): String;
 declare function getExtension(): String;
+
