@@ -3,6 +3,8 @@
 // Definitions by: Dave Allen <https://github.com/fullflavedave>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+interface Window { cordova: any; }
+
 /**
  * These are the common (for client and server) modules and interfaces that can't be automatically generated from the Meteor data.js file
  */

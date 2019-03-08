@@ -8,15 +8,15 @@ import { Query } from 'react-apollo';;
 import gql from 'graphql-tag'; <% } %>
 <% if (!isStore && client === 'react') { %>
 interface <%= className %>Component {
-  // Not Implemented
+  state: any;
 }
 class <%= className %>Component extends React.Component<<%= className %>Component> {<% } else if (!isStore && client === 'reflux') { %>
 interface <%= className %>Component {
-  // Not implemented
+  state: any;
 }
 class <%= className %>Component extends Reflux.Component<<%= className %>Component> {<% } else { %>
 interface <%= className %>Component {
-  // Not implemented
+  state: any;
 }
 class <%= className %>Component extends Reflux.Store<<%= className %>Component> {<% } %><% if (client === 'reflux' && isStore) { %>
   constructor() {
