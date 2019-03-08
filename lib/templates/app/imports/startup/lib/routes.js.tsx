@@ -7,7 +7,7 @@ import * as React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import * as Component from './templates';
 
-const Routes = (props) => (
+const Routes = (props:any) => (
     <Router history={ props.history }>
         <Route path="*" component={ Component.MasterLayout }>
             <IndexRoute component={ Component.NotFound }/>

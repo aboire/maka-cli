@@ -54,9 +54,9 @@ import createGenerateClassName from '@material-ui/core/styles/createGenerateClas
 import { grey } from '@material-ui/core/colors';<% } else { %>
 import { ServerStyleSheet } from 'styled-components';<% } %>
 
-onPageLoad(sink => {
+onPageLoad((sink:any) => {
     const history = createMemoryHistory(sink.request.url.pathname);
-    const App = (props) => (
+    const App = (props:any) => (
         <StaticRouter
             location={props.location}
             context={{}}>

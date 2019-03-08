@@ -50,7 +50,7 @@ const App = () => (<% if (config.engines.ssr === 'true') { %>
 
 
 const startApp = () => {<% if (config.engines.ssr === 'true') { %>
-  onPageLoad(sink => {
+  onPageLoad(() => {
     ReactDOM.hydrate(<App />,document.getElementById('app'));
   });<% } else { %>
   ReactDOM.render(<App />, document.getElementById('app'));<% } %>

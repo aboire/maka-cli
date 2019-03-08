@@ -6,6 +6,10 @@ declare module "react" {
   }
 }
 
+declare module "react-router-dom" {
+  export let BrowserRouter: any;
+  export let StaticRouter: any;
+}
 
 declare module "react-router" {
   export let Router: any;
@@ -16,6 +20,19 @@ declare module "react-router" {
 
 declare module "react-dom" {
   export let render: any;
+  export let hydrate: any;
+}
+
+declare module "react-dom/server" {
+  export let renderToStaticMarkup: any;
+}
+
+declare module "history" {
+  export let createMemoryHistory: any;
+}
+
+declare module "styled-components" {
+  export let ServerStyleSheet: any;
 }
 
 type Props {
