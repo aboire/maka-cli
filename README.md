@@ -1,7 +1,5 @@
 # maka-cli
 
-## Meteor Apps Kick Ass! (maka) 
-
 Maka is a command line scaffolding tool for Meteor applications with options for Server Side Rendering (SSR), GraphQL using Apollo, theme's by Material-UI (next), Tests with Jasmine, documentation with JSDocs and much more.
 
 It automatically creates project structure, files and boilerplate code.  You may use maka where ever you use meteor.
