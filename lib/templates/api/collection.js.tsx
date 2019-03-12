@@ -6,9 +6,6 @@ interface <%=name%>Collection {
   privateFields: any;
   schema: any;
 }
-type UpdateModifier {
-  $set: object;
-}
 
 /**
  * @memberof Server.<%= name %>

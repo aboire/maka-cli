@@ -47,6 +47,10 @@ type Props {
   children: any;
 }
 
+type UpdateModifier {
+  $set: object;
+}
+
 declare namespace JSX {
   interface IntrinsicElements {
     a: any;

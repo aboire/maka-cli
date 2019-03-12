@@ -10,9 +10,6 @@ interface <%=name%>Collection {
     deny: any,
     schema: any
 }
-type UpdateModifier {
-  $set: object;
-}
 
 
 class <%= name %>Collection extends Mongo.Collection<<%=name%>Collection> {
