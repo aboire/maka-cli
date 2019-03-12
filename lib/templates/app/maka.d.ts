@@ -35,6 +35,14 @@ declare module "styled-components" {
   export let ServerStyleSheet: any;
 }
 
+declare module "winston" {
+  export let winston: any;
+}
+
+declare module "winston-transport" {
+  export let index: any;
+}
+
 type Props {
   children: any;
 }

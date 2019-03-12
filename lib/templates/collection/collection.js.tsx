@@ -10,8 +10,12 @@ interface <%=name%>Collection {
     deny: any,
     schema: any
 }
+type UpdateModifier {
+  $set: object;
+}
 
-class <%= name %>Collection extends Mongo.Collection {
+
+class <%= name %>Collection extends Mongo.Collection<<%=name%>Collection> {
   constructor() {
     super('<%= name %>');
 
@@ -26,19 +30,25 @@ class <%= name %>Collection extends Mongo.Collection {
     this.schema = {};
   }
 
+  find(selector:any, modifier:object) {
+    return super.find(selector, modifier);
+  }
+
+  findOne(selector:any, modifier:object) {
+    return super.findOne(selector, modifier);
+  }
+
   /**
    * @public
    * @param { object } doc The document to inserted.
    * @param { object } callback The callback from invocation.
    * @returns { string } The _id of the new doc.
    */
-  insert(doc, callback) {
+  insert(doc:any) {
     if (this._hasSchema()) {
       check(doc, this.schema);
     }
-
-    const result = super.insert(doc, callback);
-    return result;
+    return super.insert(doc);
   }
 
   /**
@@ -47,13 +57,12 @@ class <%= name %>Collection extends Mongo.Collection {
    * @param { object } modifier The mongodb modifier.
    * @returns { string } The _id of the document updated.
    * */
-  update(selector, modifier) {
+  update(selector:any, modifier:UpdateModifier) {
     if (this._hasSchema()) {
       check(modifier.$set, this.schema);
     }
-    
-    const result = super.update(selector, modifier);
-    return result;
+
+    return super.update(selector, modifier);
   }
 
   /**
@@ -61,9 +70,8 @@ class <%= name %>Collection extends Mongo.Collection {
    * @param { object | string } selector The mongodb selector.
    * @returns { string } The _id of the document being removed.
    */
-  remove(selector) {
-    const result = super.remove(selector);
-    return result;
+  remove(selector:any) {
+    return super.remove(selector);
   }
 
   // Helper method
@@ -75,6 +83,11 @@ class <%= name %>Collection extends Mongo.Collection {
     }
   }
 }
+
+/**
+ * @memberof Server.<%= name %>
+ * @member <%= name %>
+ */
 const <%= name %> = new <%= name %>Collection();
 export default  <%= name %>;
 

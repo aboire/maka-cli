@@ -2,10 +2,14 @@ import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
 interface <%=name%>Collection {
-  publicFields: any,
-  privateFields: any,
-  schema: any
+  publicFields: any;
+  privateFields: any;
+  schema: any;
 }
+type UpdateModifier {
+  $set: object;
+}
+
 /**
  * @memberof Server.<%= name %>
  * @extends Mongo.Collection
@@ -25,11 +29,11 @@ class <%= name %>Collection extends Mongo.Collection<<%=name%>Collection> {
     this.schema = {};
   }
 
-  find(selector, modifier) {
+  find(selector:any, modifier:object) {
     return super.find(selector, modifier);
   }
 
-  findOne(selector, modifier) {
+  findOne(selector:any, modifier:object) {
     return super.findOne(selector, modifier);
   }
 
@@ -39,7 +43,7 @@ class <%= name %>Collection extends Mongo.Collection<<%=name%>Collection> {
    * @param { object } callback The callback from invocation.
    * @returns { string } The _id of the new doc.
    */
-  insert(doc) {
+  insert(doc:any) {
     if (this._hasSchema()) {
       check(doc, this.schema);
     }
@@ -52,7 +56,7 @@ class <%= name %>Collection extends Mongo.Collection<<%=name%>Collection> {
    * @param { object } modifier The mongodb modifier.
    * @returns { string } The _id of the document updated.
    * */
-  update(selector, modifier) {
+  update(selector:any, modifier:UpdateModifier) {
     if (this._hasSchema()) {
       check(modifier.$set, this.schema);
     }
@@ -65,7 +69,7 @@ class <%= name %>Collection extends Mongo.Collection<<%=name%>Collection> {
    * @param { object | string } selector The mongodb selector.
    * @returns { string } The _id of the document being removed.
    */
-  remove(selector) {
+  remove(selector:any) {
     return super.remove(selector);
   }
 

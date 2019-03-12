@@ -1,6 +1,4 @@
-import winston from 'winston';
-
-import { MongoTransport } from '/imports/startup/lib/services/logger-transports';
+import  from 'winston';
 
 const Logger = winston.createLogger({
   level: 'info',

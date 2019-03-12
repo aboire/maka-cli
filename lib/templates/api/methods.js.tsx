@@ -24,7 +24,7 @@ import <%= name %> from './<%= fileName %>-collection';
 const insert<%= name %> = new ValidatedMethod({
   name: '<%= fileName %>.insert',
   validate: null,
-  run(doc) {
+  run(doc:object) {
     return <%= name %>.insert(doc);
   },
 });
@@ -41,7 +41,7 @@ const insert<%= name %> = new ValidatedMethod({
 const update<%= name %> = new ValidatedMethod({
   name: '<%= fileName %>.update',
   validate: null,
-  run([docId, obj]) {
+  run([docId, obj]:Array<any>) {
     return <%= name %>.update(docId, { $set: obj });
   },
 });
@@ -58,12 +58,12 @@ const update<%= name %> = new ValidatedMethod({
 const remove<%= name %> = new ValidatedMethod({
   name: '<%= fileName %>.remove',
   validate: null,
-  run(docId) {
+  run(docId:number) {
     return <%= name %>.remove(docId);
   },
 });
 
-const RATE_LIMITED_METHODS = [
+const RATE_LIMITED_METHODS:any = [
     insert<%= name %> , update<%= name %> , remove<%= name %>
 ].map(value => value['name']);
 
@@ -72,7 +72,7 @@ if (Meteor.isServer) {
   const PER_SECOND = 1 * 1000; // milliseconds
   // Only allow 5 list operations per connection per second.
   DDPRateLimiter.addRule({
-    name(name) {
+    name(name:string):boolean {
       return RATE_LIMITED_METHODS.includes(name);
     },
 
