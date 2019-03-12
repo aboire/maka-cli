@@ -1,4 +1,4 @@
-import  from 'winston';
+import winston from 'winston';
 
 const Logger = winston.createLogger({
   level: 'info',
