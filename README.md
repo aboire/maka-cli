@@ -17,7 +17,7 @@ Maka works great on OSX and Linux... and Windows.
 Maka
 
 ## UPDATE 2.16
-Hey all!  I've been getting a lot of "framework" fatigue lately...even with my favorite React framework!!  So, I thought... WHY do I need to
+Hey all!  I've been getting a lot of "framework fatigue" lately...even with my favorite React framework!!  So, I thought... WHY do I need to
 use Meteor AND any client side framework at all?  Can't I "just?!"
 
 So, here is my first stab at a "Vanilla Javascript" client side implementation.  Yes, that's right -- NO Javascript client framework!  Not even jquery!
