@@ -4,13 +4,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <meta name="description" content="<%= app %>">
+  <meta name="theme-color" content="#FFF"/>
+  <link rel="manifest" href="/manifest.json">
   <title><%= app %></title>
-
-  	<script type="text/javascript">
-    window.onbeforeunload = closingCode;
-    function closingCode(){
-      if (Meteor.settings.public.logoutOnClose === true) Meteor.logout();
-      return null;
-    }
-    </script>
+  <noscript>
+    Please enable JavaScript
+  </noscript>
+  <script type="text/javascript">
+  window.onbeforeunload = closingCode;
+  function closingCode(){
+    if (Meteor.settings.public.logoutOnClose === true) Meteor.logout();
+    return null;
+  }
+  </script>
 </head>
