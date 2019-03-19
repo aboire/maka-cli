@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+import { check, Match } from 'meteor/check';
 
 import <%= name %> from './<%= fileName %>-collection.ts';
 
@@ -21,13 +22,54 @@ import <%= name %> from './<%= fileName %>-collection.ts';
  * @property { function }   validate    Is run before the main execution.
  * @property { function }   run         The main action that is executed.
  */
-const insert = new ValidatedMethod({
-    name: '<%= fileName %>.insert',
-    validate: null,
-    run(doc) {
-        return <%= name %>.insert(doc);
-    }
+const insert<%= name %> = new ValidatedMethod({
+  name: '<%= fileName %>.insert',
+  validate(doc) {
+    check(doc, Object);
+  },
+  run(doc) {
+    return <%= name %>.insert(doc);
+  }
 });
+
+/**
+ * Client side find method.
+ *
+ * @memberof Server.<%= name %>
+ * @method
+ * @property { string }     name        String that defines the method.
+ * @property { function }   validate    Is run before the main execution.
+ * @property { function }   run         The main action that is executed.
+ */
+const find<%= name %> = new ValidatedMethod({
+  name: '<%= fileName %>.find',
+  validate(doc = {}) {
+    check(doc, Match.OneOf(String, Object));
+  },
+  run(doc = {}) {
+    return <%= name %>.find(doc).fetch();
+  }
+});
+
+/**
+ * Client side findOne method.
+ *
+ * @memberof Server.<%= name %>
+ * @method
+ * @property { string }     name        String that defines the method.
+ * @property { function }   validate    Is run before the main execution.
+ * @property { function }   run         The main action that is executed.
+ */
+const findOne<%= name %> = new ValidatedMethod({
+  name: '<%= fileName %>.findOne',
+  validate(doc = {}) {
+    check(doc, Match.OneOf(String, Object));
+  },
+  run(doc = {}) {
+    return <%= name %>.findOne(doc);
+  }
+});
+
 
 /**
  * Client side update method.
@@ -38,12 +80,16 @@ const insert = new ValidatedMethod({
  * @property { function }   validate    Is run before the main execution.
  * @property { function }   run         The main action that is executed.
  */
-const update = new ValidatedMethod({
-    name: '<%= fileName %>.update',
-    validate: null,
-    run([docId, obj]) {
-        return <%= name %>.update(docId, {$set: obj});
-    }
+const update<%= name %>  = new ValidatedMethod({
+  name: '<%= fileName %>.update',
+  validate({_id, set}) { 
+    if (typeof _id !== 'string' && typeof set !== 'object') throw 'Usage Error: Expecting signature { _id: <string>, set: <object> }';
+    check(_id, String);
+    check(set, Object);
+  },
+  run({_id, set}) {
+    return <%= name %>.update(_id, {$set: set});
+  }
 });
 
 /**
@@ -55,28 +101,32 @@ const update = new ValidatedMethod({
  * @property { function }   validate    Is run before the main execution.
  * @property { function }   run         The main action that is executed.
  */
-const remove = new ValidatedMethod({
-    name: '<%= fileName %>.remove',
-    validate: null,
-    run(docId) {
-        return <%= name %>.remove(docId);
-    }
+const remove<%= name %>  = new ValidatedMethod({
+  name: '<%= fileName %>.remove',
+  validate(_id) {
+    // NOTE: May want to use object removal, but dangerous!!!
+    check(_id, String);
+  },
+  run(_id) {
+    return <%= name %>.remove(_id);
+  }
 });
 
 const RATE_LIMITED_METHODS = [
-    insert<%= name %> , update<%= name %> , remove<%= name %>
+  insert<%= name %> , find<%= name %>, findOne<%= name %>, update<%= name %> , remove<%= name %>
 ].map(value => value['name']);
 
 if (Meteor.isServer) {
-    const OPERATIONS = 5;
-    const PER_SECOND = 1 * 1000; // milliseconds
-    // Only allow 5 list operations per connection per second.
-    DDPRateLimiter.addRule({
-        name(name) {
-          return RATE_LIMITED_METHODS.includes(name);
-        },
+  const OPERATIONS = 5;
+  const PER_SECOND = 1 * 1000; // milliseconds
+  // Only allow 5 list operations per connection per second.
+  DDPRateLimiter.addRule({
+    name(name) {
+      return RATE_LIMITED_METHODS.includes(name);
+    },
 
-        // Rate limit per connection ID.
-        connectionId() { return true; },
-    }, OPERATIONS, PER_SECOND);
+    // Rate limit per connection ID.
+    connectionId() { return true; },
+  }, OPERATIONS, PER_SECOND);
 }
+

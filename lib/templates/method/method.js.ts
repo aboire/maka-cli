@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+import { check, Match } from 'meteor/check';
 
 /**
  * Using ValidatedMethod (maintained by MDG) is the best
@@ -19,13 +20,14 @@ import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
  */
 const <%= name %> = new ValidatedMethod({
   name: '<%= fileName %>.server',
-  validate: null,
+  validate() {
+    //check(this.userId, String);
+  },
   run() {
-    // insert code to run
+    // insert code to run.
     return false;
   },
 });
-
 
 const RATE_LIMITED_METHODS = [
   <%= name %>,

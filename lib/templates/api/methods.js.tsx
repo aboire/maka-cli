@@ -1,8 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+import { check, Match } from 'meteor/check';
 
-import <%= name %> from './<%= fileName %>-collection';
+import <%= name %> from './<%= fileName %>-collection.tsx';
 
 /**
  * Using ValidatedMethod (maintained by MDG) is the best
@@ -23,11 +24,52 @@ import <%= name %> from './<%= fileName %>-collection';
  */
 const insert<%= name %> = new ValidatedMethod({
   name: '<%= fileName %>.insert',
-  validate: null,
-  run(doc:object) {
-    return <%= name %>.insert(doc);
+  validate(doc) {
+    check(doc, Object);
   },
+  run(doc) {
+    return <%= name %>.insert(doc);
+  }
 });
+
+/**
+ * Client side find method.
+ *
+ * @memberof Server.<%= name %>
+ * @method
+ * @property { string }     name        String that defines the method.
+ * @property { function }   validate    Is run before the main execution.
+ * @property { function }   run         The main action that is executed.
+ */
+const find<%= name %> = new ValidatedMethod({
+  name: '<%= fileName %>.find',
+  validate(doc = {}) {
+    check(doc, Match.OneOf(String, Object));
+  },
+  run(doc = {}) {
+    return <%= name %>.find(doc);
+  }
+});
+
+/**
+ * Client side findOne method.
+ *
+ * @memberof Server.<%= name %>
+ * @method
+ * @property { string }     name        String that defines the method.
+ * @property { function }   validate    Is run before the main execution.
+ * @property { function }   run         The main action that is executed.
+ */
+const findOne<%= name %> = new ValidatedMethod({
+  name: '<%= fileName %>.findOne',
+  validate(doc = {}) {
+    check(doc, Match.OneOf(String, Object));
+  },
+  run(doc = {}) {
+    return <%= name %>.findOne(doc);
+  }
+});
+
 
 /**
  * Client side update method.
@@ -38,12 +80,16 @@ const insert<%= name %> = new ValidatedMethod({
  * @property { function }   validate    Is run before the main execution.
  * @property { function }   run         The main action that is executed.
  */
-const update<%= name %> = new ValidatedMethod({
+const update<%= name %>  = new ValidatedMethod({
   name: '<%= fileName %>.update',
-  validate: null,
-  run([docId, obj]:Array<any>) {
-    return <%= name %>.update(docId, { $set: obj });
+  validate({_id, set}) { 
+    if (typeof _id !== 'string' && typeof set !== 'object') throw 'Usage Error: Expecting signature { _id: <string>, set: <object> }';
+    check(_id, String);
+    check(set, Object);
   },
+  run({_id, set}) {
+    return <%= name %>.update(_id, {$set: set});
+  }
 });
 
 /**
@@ -55,16 +101,19 @@ const update<%= name %> = new ValidatedMethod({
  * @property { function }   validate    Is run before the main execution.
  * @property { function }   run         The main action that is executed.
  */
-const remove<%= name %> = new ValidatedMethod({
+const remove<%= name %>  = new ValidatedMethod({
   name: '<%= fileName %>.remove',
-  validate: null,
-  run(docId:number) {
-    return <%= name %>.remove(docId);
+  validate(_id) {
+    // NOTE: May want to use object removal, but dangerous!!!
+    check(_id, String);
   },
+  run(_id) {
+    return <%= name %>.remove(_id);
+  }
 });
 
-const RATE_LIMITED_METHODS:any = [
-    insert<%= name %> , update<%= name %> , remove<%= name %>
+const RATE_LIMITED_METHODS = [
+  insert<%= name %> , find<%= name %>, findOne<%= name %>, update<%= name %> , remove<%= name %>
 ].map(value => value['name']);
 
 if (Meteor.isServer) {
@@ -72,7 +121,7 @@ if (Meteor.isServer) {
   const PER_SECOND = 1 * 1000; // milliseconds
   // Only allow 5 list operations per connection per second.
   DDPRateLimiter.addRule({
-    name(name:string):boolean {
+    name(name) {
       return RATE_LIMITED_METHODS.includes(name);
     },
 
