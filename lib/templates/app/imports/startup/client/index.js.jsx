@@ -56,7 +56,7 @@ const startApp = () => {<% if (config.engines.ssr === 'true') { %>
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
-    navigator.serviceWorker.register('sw.js')
+    navigator.serviceWorker.register('sw.jsx')
       .then(reg => {
         console.log('Service worker registered! 😎', reg);
       })
