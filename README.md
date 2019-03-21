@@ -2,7 +2,7 @@
 
 ```
   npm i -g maka-cli
-``
+```
 
 Documentation has moved over to:
 
