@@ -1,8 +1,9 @@
-# maka-cli
-
+## Installation
 ```
   npm i -g maka-cli
 ```
+
+## Getting Started
 
 Documentation has moved over to:
 
