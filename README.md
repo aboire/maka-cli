@@ -6,7 +6,7 @@
 
 Documentation has moved over to:
 
-[maka-cli.org](http://maka-cli.org)
+[maka-cli.org](http://www.maka-cli.org)
 
 
 ## License
