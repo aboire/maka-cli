@@ -26,7 +26,7 @@ const usersTypeDefs = gql`
   }
 `;
 
-const typeList = [];
+const typeList = [usersTypeDefs];
 const resolverList = [];
 
 if (typeList.length > 0 && resolverList.length > 0) {
