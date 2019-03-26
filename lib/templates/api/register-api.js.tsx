@@ -12,4 +12,4 @@
 import '../../api<%= optsDir %><%= fileName %>/rpc-methods';
 import '../../api<%= optsDir %><%= fileName %>/fixtures';
 import '../../api<%= optsDir %><%= fileName %>/publications';
-<% if( api !== 'none' ) { %>import '../../api<%= optsDir %><%= fileName %>/rest-api';<% } %>
+<% if( api === 'rest' || api === 'restivus' ) { %>import '../../api<%= optsDir %><%= fileName %>/rest-api';<% } %>
