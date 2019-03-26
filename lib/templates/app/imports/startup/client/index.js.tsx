@@ -3,22 +3,10 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 <% if (config.engines.graphql === 'apollo') {  %>
 // Apollo Client configuration
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloLink } from 'apollo-link';
-import { HttpLink } from 'apollo-link-http';
-import { MeteorAccountsLink } from 'meteor/apollo';
 import { ApolloProvider } from 'react-apollo';
+import { initialize } from 'meteor/cultofcoders:apollo';
 
-const client = new ApolloClient({
-  link: ApolloLink.from([
-    new MeteorAccountsLink(),
-    new HttpLink({
-      uri: '/graphql'
-    })
-  ]),
-  cache: new InMemoryCache()
-});
+const { client } = initialize();
 
 <% } %><% if (config.engines.theme === 'material') { %>
 // Material UI Theme config using roboto typefont and default mui.
