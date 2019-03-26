@@ -6,9 +6,7 @@ import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
 import { initialize } from 'meteor/cultofcoders:apollo';
 
-const { client } = initialize({
-  disableWebsockets: false, // Whether or not to try to connect to websockets, it connects by default
-});
+const { client } = initialize();
 
 <% } %><% if (config.engines.theme === 'material') { %>
 // Material UI Theme config using roboto typefont and default mui.
