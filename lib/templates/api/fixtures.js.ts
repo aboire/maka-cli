@@ -7,7 +7,7 @@ import <%= name %> from './<%= fileName %>-collection';
  *
  * Example:
  * ```
- *   if (<%= name %>.find().count() === 0) {
+ *   if (<%= name %>.find({}).count() === 0) {
  *       const data = JSON.parse(Assets.getText('<%= fileName %>.json')) || [ {} ];
  *       data.forEach((datum) => {
  *           <%= name %>.insert(datum);

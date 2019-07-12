@@ -1,5 +1,6 @@
 /*****************************************************************************/
 /* <%= className %>: Style */
 /*****************************************************************************/
-<% if (isComponent) { %>#<%= cssCaseName %>-component {<% } else { %>#<%= cssCaseName %>-page {<% } %>
+<% if (isComponent) { %>#<%= cssCaseName %>-component {<% } else { %>#<%= cssCaseName %> {<% } %>
+
 }
