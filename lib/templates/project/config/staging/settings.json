@@ -2,6 +2,6 @@
   "public": {
     "logoutOnClose": true
   },
-  "server": "Will no run on client",
+  "//server": "//Will not run on client",
   "language": "en"
 }
