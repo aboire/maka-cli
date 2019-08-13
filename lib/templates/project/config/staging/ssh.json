@@ -1,6 +1,0 @@
-{
-  "host": "1.2.3.4",
-  "port": 22,
-  "user": "ubuntu",
-  "pem": "~/Downloads/<%= app %>.pem.txt"
-}
