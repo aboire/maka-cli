@@ -1,4 +1,5 @@
 {
+  "appName": "<%= config.appName %>",
   "engines": {
     "html": "<%= config.engines.html %>",
     "js": "<%= config.engines.js %>",

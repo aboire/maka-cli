@@ -1,7 +1,0 @@
-{
-  "public": {
-    "logoutOnClose": false
-  },
-  "//server": "//Will not run on client",
-  "language": "en"
-}
