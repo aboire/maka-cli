@@ -66,6 +66,8 @@ if (!Meteor.isDevelopment && Meteor.isClient) {
             console.log('😥 Service worker registration failed: ', err);
             });
         });
+  } else {
+    console.warn('Service worker registration failed. Likely you are not serving content over HTTPS');
   }
 }
 
