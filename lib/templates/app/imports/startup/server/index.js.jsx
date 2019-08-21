@@ -49,7 +49,7 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import { create } from 'jss';
 import preset from 'jss-preset-default';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import createGenerateClassName from '@material-ui/core/styles/createGenerateClassName';
+import { createGenerateClassName } from '@material-ui/styles';
 import { grey } from '@material-ui/core/colors';<% } else { %>
 import { ServerStyleSheet } from 'styled-components';<% } %>
 

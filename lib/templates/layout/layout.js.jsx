@@ -12,10 +12,6 @@ class <%= className %>Component extends Component {
     this.state = {};
   }
 
-  componentWillMount() {<% if (client === 'reflux' && !isStore) { %>
-    super.componentWillMount();<% }%>
-  }
-
   componentDidMount() { }
 
   componentWillUnmount() {<% if (client === 'reflux' && !isStore) { %>

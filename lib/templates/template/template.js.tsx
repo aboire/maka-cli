@@ -35,8 +35,6 @@ class <%= className %>Component extends Reflux.Store<<%= className %>Component> 
     this.store = null;<% } %>
   }<% } %>
 
-  componentWillMount() {<% if (client === 'reflux' && !isStore) { %> super.componentWillMount();<% }%> }
-
   componentDidMount() { }
 
   componentWillUnmount() {<% if (client === 'reflux' && !isStore) { %> super.componentWillUnmount();<% }%> }

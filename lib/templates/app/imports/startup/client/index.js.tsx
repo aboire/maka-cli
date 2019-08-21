@@ -27,7 +27,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
   typography: {
     useNextVariants: true,
-  },                           
+  },
 });
 <% } %><% if (config.engines.ssr === 'true') { %>
 // Server Side Rendering sink and router classifier.

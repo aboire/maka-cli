@@ -18,10 +18,6 @@ class <%= className %>Component extends React.Component<<%= className %>Componen
     this.state = {};
   }
 
-  componentWillMount() {<% if (client === 'reflux' && !isStore) { %>
-    super.componentWillMount();<% }%>
-  }
-
   componentDidMount() { }
 
   componentWillUnmount() {<% if (client === 'reflux' && !isStore) { %>

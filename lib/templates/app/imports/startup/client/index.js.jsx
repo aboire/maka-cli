@@ -26,7 +26,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
   typography: {
     useNextVariants: true,
-  },                           
+  },
 });
 <% } %><% if (config.engines.ssr === 'true') { %>
 // Server Side Rendering sink and router classifier.
@@ -69,7 +69,6 @@ if (!Meteor.isDevelopment && Meteor.isClient) {
     console.warn('Service worker registration failed. Likely you are not serving content over HTTPS');
   }
 }
-
 
 if(window.cordova) {
   document.addEventListener('deviceready', startApp, false);
