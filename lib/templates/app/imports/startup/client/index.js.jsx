@@ -20,15 +20,18 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
-<% } %><% if (config.engines.theme === 'material') { %>
-// Material UI Theme config using roboto typefont and default mui.
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-const theme = createMuiTheme({
+<% } %><% if (config.engines.theme === 'material') { if (config.engines.ssr === 'true') { %>
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { theme } from '../lib/index';<% } else { %>
+// Material UI Theme config using default mui.
+import { MuiThemeProvider, createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+let theme = createMuiTheme({
   typography: {
     useNextVariants: true,
   },
 });
-<% } %><% if (config.engines.ssr === 'true') { %>
+theme = responsiveFontSizes(theme);<% }} %>
+<% if (config.engines.ssr === 'true') { %>
 // Server Side Rendering sink and router classifier.
 import { BrowserRouter } from 'react-router-dom'
 import { onPageLoad } from "meteor/server-render";

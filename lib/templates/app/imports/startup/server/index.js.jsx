@@ -23,9 +23,9 @@ if (typeList.length > 0 && resolverList.length > 0) {
 }<% } %>
 <% if (config.engines.ssr === 'true') { %>
 /************* SSR Code ********************/
-import Routes from '../lib/routes.jsx';
+import Routes from '../lib/routes';
 import React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
+import { renderToStaticMarkup, renderToNodeStream } from 'react-dom/server';
 import { onPageLoad } from 'meteor/server-render';
 import { StaticRouter } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
@@ -48,76 +48,67 @@ import { SheetsRegistry } from 'react-jss/lib/jss';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { create } from 'jss';
 import preset from 'jss-preset-default';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { createGenerateClassName } from '@material-ui/styles';
-import { grey } from '@material-ui/core/colors';<% } else { %>
+import { ServerStyleSheets, ThemeProvider } from '@material-ui/styles';
+import { createGenerateClassName } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
+import { theme } from '../lib/index';<% } else { %>
 import { ServerStyleSheet } from 'styled-components';<% } %>
 
 onPageLoad(sink => {
-    const history = createMemoryHistory(sink.request.url.pathname);
-    const App = (props) => (
-        <StaticRouter
-            location={props.location}
-            context={{}}>
-            <Routes history={history}/>
-        </StaticRouter>
-    );<% if (config.engines.theme === 'material') { %>
-    // Create a sheetsRegistry instance.
-    const sheetsRegistry = new SheetsRegistry();
+  const history = createMemoryHistory(sink.request.url.pathname);
+  const App = (props) => (
+      <StaticRouter
+          location={props.location}
+          context={{}}>
+          <Routes history={history}/>
+      </StaticRouter>
+  );<% if (config.engines.theme === 'material') { %>
+  // Create a sheets instance.
+  const sheets = new ServerStyleSheets();
 
-    // Create a theme instance.
-    const theme = createMuiTheme({
-      typography: {
-        useNextVariants: true,
-      },
-      palette: {
-        primary: grey,
-        accent: grey,
-        type: 'light',
-      },
-    });
-
-    const jss = create(preset());
-    jss.options.createGenerateClassName = createGenerateClassName;
-    <% if (config.engines.graphql === 'apollo') { %>
-    renderToStringWithData(
+  const jss = create(preset());
+  jss.options.createGenerateClassName = createGenerateClassName;
+  <% if (config.engines.graphql === 'apollo') { %>
+  renderToStringWithData(
+    sheets.collect(
       <ApolloProvider client={client}>
-        <JssProvider registry={sheetsRegistry} jss={jss}>
-          <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
+        <JssProvider registry={sheets} jss={jss}>
+          <ThemeProvider theme={theme}>
             <App location={sink.request.url} />
-          </MuiThemeProvider>
+          </ThemeProvider>
         </JssProvider>
       </ApolloProvider>
-    ).then((content) => {
-      const css = sheetsRegistry.toString();
-      sink.appendToHead(`<style id="jss-server-side">${css}</style>`);
-      sink.renderIntoElementById('app', content);
-    });
-    <% } else { %>
-    const html = renderToStaticMarkup(
-      <JssProvider registry={sheetsRegistry} jss={jss}>
-        <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
+    )
+  ).then((content) => {
+    const css = sheets.toString();
+    sink.appendToHead('<style id="jss-server-side">${css}</style>');
+    sink.renderIntoElementById('app', content);
+  });
+  <% } else { %>
+  const html = renderToStaticMarkup(
+    sheets.collect(
+      <JssProvider registry={sheets} jss={jss}>
+        <ThemeProvider theme={theme}>
           <App location={sink.request.url} />
-        </MuiThemeProvider>
+        </ThemeProvider>
       </JssProvider>
-    );
-    const css = sheetsRegistry.toString();
-    sink.appendToHead(`<style id="jss-server-side">${css}</style>`);
-    sink.renderIntoElementById('app', html);<% } %><% } else { %>
-    <% if (config.engines.graphql === 'apollo') { %>
-    const sheet = new ServerStyleSheet();
-    renderToStringWithData(sheet.collectStyles(
-      <ApolloProvider client={client}>
-        <App location={sink.request.url} />
-      </ApolloProvider>
-    )).then((content) => {
-      sink.appendToHead(sheet.getStyleTags());
-      sink.renderIntoElementById('app', content);
-    });<% } else { %>
-    const sheet = new ServerStyleSheet();
-    const html = renderToStaticMarkup(sheet.collectStyles(
+    )
+  );
+  const css = sheets.toString();
+  sink.appendToHead(`<style id="jss-server-side">${css}</style>`);
+  sink.renderIntoElementById('app', html);<% } %><% } else { %>
+  <% if (config.engines.graphql === 'apollo') { %>
+  const sheet = new ServerStyleSheet();
+  renderToStringWithData(sheet.collectStyles(
+    <ApolloProvider client={client}>
       <App location={sink.request.url} />
-    ));
+    </ApolloProvider>
+  )).then((content) => {
     sink.appendToHead(sheet.getStyleTags());
-    sink.renderIntoElementById('app', html);<% } %><% } %>
+    sink.renderIntoElementById('app', content);
+  });<% } else { %>
+  const sheet = new ServerStyleSheet();
+  const jsx = sheet.collectStyles(<App location={sink.request.url} />);
+  const stream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx));
+  sink.renderIntoElementById('app', stream);<% } %><% } %>
 });<% } %>

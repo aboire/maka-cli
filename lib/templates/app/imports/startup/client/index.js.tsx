@@ -21,8 +21,7 @@ const client = new ApolloClient({
 });
 
 <% } %><% if (config.engines.theme === 'material') { %>
-// Material UI Theme config using roboto typefont and default mui.
-import 'typeface-roboto'
+// Material UI Theme config using  default mui.
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
   typography: {
