@@ -11,6 +11,7 @@ declare var describe: Function;
 declare var assert: any;
 declare var equal: any;
 declare var Map: any;
+declare var Meteor: any;
 
 // TODO: These should be worked out ...
 declare module 'meteor/react-meteor-data': any;
@@ -21,6 +22,7 @@ declare module 'meteor/server-render': any;
 declare module 'meteor/underscore': any;
 declare module 'meteor/ddp-rate-limiter';
 declare module 'meteor/check': any;
+declare module 'meteor/webapp': any;
 
 interface EJSONable {
   [key: string]: number | string | boolean | Object | number[] | string[] | Object[] | Date | Uint8Array | EJSON.CustomType;

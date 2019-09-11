@@ -18,7 +18,7 @@ class <%= className %>Component extends Component {
     super.componentWillUnmount();<% }%>
   }
 
-  render() { return (<div>{ this.props.children }</div>); }
+  render() { return (<div id="<%=fileName%>">{ this.props.children }</div>); }
 }
 
 const <%= className %> = <%= className %>Component;
