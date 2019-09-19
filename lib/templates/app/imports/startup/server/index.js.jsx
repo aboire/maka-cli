@@ -14,7 +14,11 @@ if (typeList.length > 0 && resolverList.length > 0) {
     resolvers,
     context: async ({ req }) => ({
       user: await getUser(req.headers.authorization)
-    })
+    }),
+    formatError: (err) => {
+      // Don't give specific errors to the client
+      return err.message;
+    }
   });
   server.applyMiddleware({
     app: WebApp.connectHandlers,
