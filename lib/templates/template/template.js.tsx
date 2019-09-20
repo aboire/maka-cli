@@ -41,7 +41,7 @@ class <%= className %>Component extends Reflux.Store<<%= className %>Component> 
 
   render() {
     return (
-      <div id="<%=fileName%>">
+      <div id="<% if (isComponent) { %><%= cssCaseName %>-component<% } else { %><%= cssCaseName %><% } %>">
         <h2>Find me in <%= myPath %></h2>
       </div>
     );
