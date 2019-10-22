@@ -3,8 +3,8 @@ import React from 'react';<% if ( isStore ) { %>
 import { Store } from 'reflux'; <% } else { %>
 import { Component } from 'reflux';<% } %><% } %><% if (features.withTracker !== 'false' && !isStore) { %>
 import { withTracker } from 'meteor/react-meteor-data';<% } %><% if(graphql === 'apollo' && !isStore) { %>
-import { Query, withApollo } from 'react-apollo';
-import gql from 'graphql-tag'; <% } %>
+import { withApollo } from 'react-apollo';<% } %>
+
 <% if (!isStore) { %>
 class <%= className %>Component extends Component {<% } else { %>
 class <%= className %>Component extends Store { <% } %><% if (client === 'reflux' && isStore) { %>

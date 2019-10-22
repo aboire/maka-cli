@@ -3,8 +3,7 @@ import * as React from 'react';<% if ( isStore ) { %>
 import Reflux from 'reflux'; <% } else { %>
 import Reflux from 'reflux';<% } %><% } %><% if (features.withTracker !== 'false' && !isStore) { %>
 import { withTracker } from 'meteor/react-meteor-data';<% } %><% if(graphql === 'apollo' && !isStore) { %>
-import { Query, withApollo } from 'react-apollo';;
-import gql from 'graphql-tag'; <% } %>
+import { withApollo } from 'react-apollo';<% } %>
 <% if (!isStore && client === 'react') { %>
 interface <%= className %>Component {
   props: object;

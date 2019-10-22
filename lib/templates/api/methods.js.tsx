@@ -26,7 +26,7 @@ const insert<%= name %> = new ValidatedMethod({
   name: '<%= fileName %>.insert',
   validate(doc) {
     check(doc, Object);
-    check(this.userId, String);
+    //check(this.userId, String);
   },
   run(doc) {
     //return <%= name %>.insert(doc);
@@ -46,7 +46,7 @@ const find<%= name %> = new ValidatedMethod({
   name: '<%= fileName %>.find',
   validate(doc = {}) {
     check(doc, Match.OneOf(String, Object));
-    check(this.userId, String);
+    //check(this.userId, String);
   },
   run(doc = {}) {
     //return <%= name %>.find(doc);
@@ -66,7 +66,7 @@ const findOne<%= name %> = new ValidatedMethod({
   name: '<%= fileName %>.findOne',
   validate(doc = {}) {
     check(doc, Match.OneOf(String, Object));
-    check(this.userId, String);
+    //check(this.userId, String);
   },
   run(doc = {}) {
     //return <%= name %>.findOne(doc);
@@ -89,7 +89,7 @@ const update<%= name %>  = new ValidatedMethod({
     if (typeof _id !== 'string' && typeof set !== 'object') throw 'Usage Error: Expecting signature { _id: <string>, set: <object> }';
     check(_id, String);
     check(set, Object);
-    check(this.userId, String);
+    //check(this.userId, String);
   },
   run({_id, set}) {
     //return <%= name %>.update(_id, {$set: set});
@@ -110,7 +110,7 @@ const remove<%= name %>  = new ValidatedMethod({
   validate(_id) {
     // NOTE: May want to use object removal, but dangerous!!!
     check(_id, String);
-    check(this.userId, String);
+    //check(this.userId, String);
   },
   run(_id) {
     //return <%= name %>.remove(_id);

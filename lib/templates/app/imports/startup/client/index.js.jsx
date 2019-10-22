@@ -17,7 +17,7 @@ const client = new ApolloClient({
       uri: '/graphql'
     })
   ]),
-  // This solves a stupid cache error.
+  // This solves a cache error.
   cache: new InMemoryCache({
     dataIdFromObject: o => {o.id ? `${o.__typename}-${o.id}`: `${o.__typename}-${o.cursor}`},
   })
