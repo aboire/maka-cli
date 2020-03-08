@@ -11,6 +11,9 @@ import * as Component from './templates.jsx';
 
 const Routes = () => (
   <Router history={ browserHistory }>
+    <Route path="/" component={Component.MasterLayout}>
+      <IndexRoute component={Component.Home}/>
+    </Route>
     <Route path="*" component={ Component.MasterLayout }>
       <IndexRoute component={ Component.NotFound }/>
     </Route>
