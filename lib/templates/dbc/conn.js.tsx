@@ -18,7 +18,7 @@ const <%= camelCase %>PgPool = new pg.Pool(config, err => {
         console.log(`[-] <%= name %> connection NOT established.  ${err}`);
         console.log(`[!] Check configuration /imports/startup/server/dbc/<%=fileName%>/config.<%=engine%>`);
     } else {
-        console.log(`[+] Connection to <%= name %> MS SQL Server established.`);
+        console.log(`[+] Connection to <%= name %> SQL Server established.`);
     }                      
 });
 
@@ -49,7 +49,7 @@ const <%= camelCase %>MsPool = new sql.ConnectionPool(config, err => {
         console.log(`[-] <%= name %> connection NOT established.  ${err}`);
         console.log(`[!] Check configuration /imports/startup/server/dbc/<%=fileName%>/config.<%=engine%>`);
     } else {
-        console.log(`[+] Connection to <%= name %>  MS SQL Server established.`);
+        console.log(`[+] Connection to <%= name %> SQL Server established.`);
     }
 });
 
