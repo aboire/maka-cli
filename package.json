@@ -24,7 +24,7 @@
     "delete": "^0.3.0",
     "ejs": "^2.6.1",
     "fibers": "^4.0.2",
-    "minimist": "^0.0.8",
+    "minimist": "^1.2.3",
     "shell-source": "^1.1.0",
     "single-line-log": "^0.4.1",
     "slash": "^1.0.0",
