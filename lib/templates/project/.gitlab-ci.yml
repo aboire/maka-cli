@@ -1,0 +1,51 @@
+stages:
+  - test
+  - build
+  - deploy
+
+test:
+  stage: test
+  image: node:12.16.1
+  tags:
+      - docker
+  artifacts:
+    paths:
+        - test-results.log
+  before_script:
+    - apt-get update
+    - apt-get install -y curl
+    - curl https://install.meteor.com/ | sh
+    - npm install -g maka-cli
+  script:
+    - maka --test --allow-superuser --once
+
+build:
+  stage: build
+  image: ubuntu
+  tags: 
+      - docker
+  artifacts:
+    paths:
+      - build/app.tar.gz
+    expire_in: 1 hour
+  before_script:
+    - apt-get update
+    - apt-get install -y curl
+    - curl https://install.meteor.com/ | sh
+  script:
+    - cd ./app
+    - meteor npm install
+    - meteor build --allow-superuser ../build
+
+deploy:
+  stage: deploy
+  image: docker:latest
+  tags: 
+      - docker
+  dependencies:
+    - build
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY;
+  script:
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:latest

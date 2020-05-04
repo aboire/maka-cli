@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM ubuntu
 
 # Replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -35,15 +35,17 @@ WORKDIR /home/ubuntu
 COPY app.tar.gz .
 RUN tar xzvf app.tar.gz
 
+# Copy the needed settings
+COPY config/development/pm2.config.js .
+COPY config/development/settings.json .
+
 # Install the app dependencies
 WORKDIR /home/ubuntu/bundle/programs/server
-RUN npm install
-RUN npm audit fix --force
+RUN npm install --silent
+RUN npm audit fix --force --silent
 
 # Remove setup packages
-RUN apt-get remove -y curl
-RUN apt-get remove -y build-essential libssl-dev
-
+RUN apt-get remove -y build-essential libssl-dev curl
 
 WORKDIR /home/ubuntu
 EXPOSE 3000
